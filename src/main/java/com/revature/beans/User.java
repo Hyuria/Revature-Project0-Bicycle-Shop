@@ -7,7 +7,7 @@ public class User {
 	//private Set<Cat> cats;
 	private Role role;
 	
-	public Person() {
+	public User() {
 		id = 0;
 		username = "";
 		password = "";
@@ -39,13 +39,14 @@ public class User {
 		this.password = password;
 	}
 
+	/*
 	public Set<Cat> getCats() {
 		return cats;
 	}
 
 	public void setCats(Set<Cat> cats) {
 		this.cats = cats;
-	}
+	}*/
 
 	public Role getRole() {
 		return role;
@@ -59,7 +60,7 @@ public class User {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((cats == null) ? 0 : cats.hashCode());
+		//result = prime * result + ((cats == null) ? 0 : cats.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
@@ -75,12 +76,12 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Person other = (Person) obj;
-		if (cats == null) {
+		User other = (User) obj;
+		/*if (cats == null) {
 			if (other.cats != null)
 				return false;
 		} else if (!cats.equals(other.cats))
-			return false;
+			return false;*/
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -106,7 +107,7 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", username=" + username + ", password=" + password + ", cats=" + cats + ", role="
+		return "Person [id=" + id + ", username=" + username + ", password=" + password + ", cats=" /*+ cats*/ + ", role="
 				+ role + "]";
 	}
 
