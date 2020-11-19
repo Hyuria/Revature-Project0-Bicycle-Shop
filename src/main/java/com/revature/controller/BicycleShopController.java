@@ -1,38 +1,40 @@
 package com.revature.controller;
-import java.io.*;
+
+import java.util.Scanner;
+import com.revature.beans.Person;
 
 public class BicycleShopController {
+	private static Scanner scan;
 
 	public static void main(String[] args) {
-		BufferedReader  readKeyBoard = new BufferedReader(new InputStreamReader(System.in)); 
-        int             selection = 9;
-        boolean         exit = false;
+		scan = new Scanner(System.in);
+        boolean exit = false;
 
-        while(!exit) {
+        mainLoop: while(!exit) {
+        	Person loggedInUser = null;
+        	
         	System.out.println("Welcome to the Bicycle Shop.");
-            System.out.println("\nPlease login. Enter a number associated with the following options to continue.");
-            System.out.println("\n1. Customer");
-            System.out.println("\n2. Employee");
-            System.out.println("\n\n\n0. Exit Application");
             
-            try {
-    			selection = Integer.parseInt(readKeyBoard.readLine());
-    		} catch (NumberFormatException e) {
-    			System.out.print("\n ***** Please enter 1, 2, or 0 only. ****** \n");
-    			//e.printStackTrace();
-    		} catch (IOException e) {
-    			//e.printStackTrace();
-    		}
-            
-            switch (selection) {
-            	case 1:
-            			break;
-            	case 2:
-            			break;
-            	case 0: exit = true;
-            			break;
-            	default:System.out.println("Invalid input, ignoring.");
-            			break;
+            while (loggedInUser == null) {
+            	System.out.println("\nPlease login. Enter a number associated with the following options to continue.");
+                System.out.println("\n1. Customer");
+                System.out.println("\n2. Employee");
+                System.out.println("\n\n9. Register for an Account");
+                System.out.println("\n0. Exit Application");
+                
+                int input = Integer.valueOf(scan.nextLine());
+                
+                switch (input) {
+				case 1:
+					//loggedInUser = registerUser();
+						break;
+				case 2:
+						//loggedInUser = logInUser();
+						break;
+				default:
+						exit = true;
+						break mainLoop;
+				}
             }
         }
         

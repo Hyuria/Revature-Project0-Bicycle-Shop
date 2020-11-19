@@ -1,12 +1,12 @@
 package com.revature.beans;
 
-public class Role {
+public class Category {
 	private Integer id;
 	private String name;
 	
-	public Role() {
-		id = 1;
-		name = "customer";
+	public Category() {
+		id = 0;
+		name = "";
 	}
 	
 	public Integer getId() {
@@ -21,6 +21,7 @@ public class Role {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -37,7 +38,7 @@ public class Role {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Role other = (Role) obj;
+		Category other = (Category) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -52,7 +53,9 @@ public class Role {
 	}
 	@Override
 	public String toString() {
-		return "Role [id=" + id + ", name=" + name + "]";
+		return "Category [id=" + id + ", name=" + name + "]";
 	}
-
+	
+	
+	
 }

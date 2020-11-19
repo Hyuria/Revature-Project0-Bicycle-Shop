@@ -1,18 +1,21 @@
 package com.revature.beans;
 
-public class User {
+import java.util.HashSet;
+import java.util.Set;
+
+public class Person {
 	private Integer id;
 	private String username;
 	private String password;
-	//private Set<Cat> cats;
 	private Role role;
+	private Set<Bicycle> bicycles;
 	
-	public User() {
+	public Person() {
 		id = 0;
 		username = "";
 		password = "";
-		//cats = new HashSet<Cat>();
 		role = new Role();
+		bicycles = new HashSet<Bicycle>();
 	}
 
 	public Integer getId() {
@@ -39,15 +42,6 @@ public class User {
 		this.password = password;
 	}
 
-	/*
-	public Set<Cat> getCats() {
-		return cats;
-	}
-
-	public void setCats(Set<Cat> cats) {
-		this.cats = cats;
-	}*/
-
 	public Role getRole() {
 		return role;
 	}
@@ -56,15 +50,23 @@ public class User {
 		this.role = role;
 	}
 
+	public Set<Bicycle> getBicycles() {
+		return bicycles;
+	}
+
+	public void setBicycles(Set<Bicycle> bicycles) {
+		this.bicycles = bicycles;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		//result = prime * result + ((cats == null) ? 0 : cats.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
+		result = prime * result + ((bicycles == null) ? 0 : bicycles.hashCode());
 		return result;
 	}
 
@@ -76,12 +78,7 @@ public class User {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
-		/*if (cats == null) {
-			if (other.cats != null)
-				return false;
-		} else if (!cats.equals(other.cats))
-			return false;*/
+		Person other = (Person) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -102,13 +99,17 @@ public class User {
 				return false;
 		} else if (!username.equals(other.username))
 			return false;
+		if (bicycles == null) {
+			if (other.bicycles != null)
+				return false;
+		} else if (!bicycles.equals(other.bicycles))
+			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", username=" + username + ", password=" + password + ", cats=" /*+ cats*/ + ", role="
-				+ role + "]";
+		return "Person [id=" + id + ", username=" + username + ", password=" + password  + ", role=" + role + "]";
 	}
 
 }
