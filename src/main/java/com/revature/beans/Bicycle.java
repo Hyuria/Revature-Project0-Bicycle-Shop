@@ -8,7 +8,7 @@ public class Bicycle {
 	private String manufacturer;
 	private String modelName;
 	private Category category;
-	private Boolean avaliable;
+	private Status avaliable;
 	private Long price;
 	private Long financedAmount;
 	private Integer financeDuration;
@@ -19,7 +19,7 @@ public class Bicycle {
 		manufacturer = "";
 		modelName = "";
 		category = new Category();
-		avaliable = true;
+		avaliable = new Status();
 		price = Long.valueOf(0);
 		offers = new HashSet<Offer>();
 	}
@@ -56,12 +56,12 @@ public class Bicycle {
 		this.category = category;
 	}
 	
-	public Boolean getAvailability() {
+	public Status getStatus() {
 		return avaliable;
 	}
 	
-	public void setAvailability(Boolean avaliable) {
-		this.avaliable = avaliable;
+	public void setStatus(Status state) {
+		this.avaliable = state;
 	}
 	
 	public long getPrice() {
