@@ -6,14 +6,12 @@ import java.util.Set;
 public class Person {
 	private Integer id;
 	private String username;
-	private String password;
 	private Role role;
 	private Set<Bicycle> bicycles;
 	
 	public Person() {
 		id = 0;
 		username = "";
-		password = "";
 		role = new Role();
 		bicycles = new HashSet<Bicycle>();
 	}
@@ -34,14 +32,6 @@ public class Person {
 		this.username = username;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public Role getRole() {
 		return role;
 	}
@@ -57,16 +47,15 @@ public class Person {
 	public void setBicycles(Set<Bicycle> bicycles) {
 		this.bicycles = bicycles;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((bicycles == null) ? 0 : bicycles.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((role == null) ? 0 : role.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
-		result = prime * result + ((bicycles == null) ? 0 : bicycles.hashCode());
 		return result;
 	}
 
@@ -79,15 +68,15 @@ public class Person {
 		if (getClass() != obj.getClass())
 			return false;
 		Person other = (Person) obj;
+		if (bicycles == null) {
+			if (other.bicycles != null)
+				return false;
+		} else if (!bicycles.equals(other.bicycles))
+			return false;
 		if (id == null) {
 			if (other.id != null)
 				return false;
 		} else if (!id.equals(other.id))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
 			return false;
 		if (role == null) {
 			if (other.role != null)
@@ -99,17 +88,12 @@ public class Person {
 				return false;
 		} else if (!username.equals(other.username))
 			return false;
-		if (bicycles == null) {
-			if (other.bicycles != null)
-				return false;
-		} else if (!bicycles.equals(other.bicycles))
-			return false;
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return "Person [id=" + id + ", username=" + username + ", password=" + password  + ", role=" + role + "]";
+		return "Person [id=" + id + ", username=" + username + ", role=" + role + "]";
 	}
 
 }

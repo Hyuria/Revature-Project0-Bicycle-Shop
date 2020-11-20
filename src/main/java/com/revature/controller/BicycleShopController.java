@@ -2,18 +2,24 @@ package com.revature.controller;
 
 import java.util.Scanner;
 import com.revature.beans.Person;
+import com.revature.utils.ConnectionUtil;
 
 public class BicycleShopController {
 	private static Scanner scan;
+	private static ConnectionUtil cu = ConnectionUtil.getConnectionUtil();
 
 	public static void main(String[] args) {
 		scan = new Scanner(System.in);
         boolean exit = false;
-
+        
+        cu.getConnection();
+        
         mainLoop: while(!exit) {
         	Person loggedInUser = null;
         	
         	System.out.println("Welcome to the Bicycle Shop.");
+        	
+        	
             
             while (loggedInUser == null) {
             	System.out.println("\nPlease login. Enter a number associated with the following options to continue.");
