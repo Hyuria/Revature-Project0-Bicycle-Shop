@@ -19,21 +19,30 @@ public class OfferPostgres implements OfferDAO{
 		
 		try (Connection conn = cu.getConnection()){
 			conn.setAutoCommit(false);
-			//String sqlString = "insert into "
-			
-			
+			String sqlString = "insert into offer values (default, ?, ?, ?)";
+			String[] keys = {"id"};
+			PreparedStatement pstmt = conn.prepareStatement(sqlString, keys);
+			pstmt.setInt(1, t.getBicycle().getId());
+			pstmt.setInt(2, t.getPerson().getId());
+			pstmt.setDouble(3, t.getPrice());
+			pstmt.executeUpdate();
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				retValOffer = t;
+				retValOffer.setId(rs.getInt(1));
+				conn.commit();
+			}else {
+				conn.rollback();
+			}
 		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		
-		
+			e.printStackTrace();
+		}	
 		return retValOffer;
 	}
 
 	@Override
 	public Offer getById(Integer id) {
-		// TODO Auto-generated method stub
+		Offer offer = null;
 		return null;
 	}
 
@@ -71,6 +80,17 @@ public class OfferPostgres implements OfferDAO{
 	public Set<Offer> getAllOngoingOffer() {
 		// TODO Auto-generated method stub
 		return null;
+	}
+	
+	public void resetDefault() {
+		try (Connection conn = cu.getConnection()){
+			String sqlString = "select setval('bicycleshop.offer_id_seq', max(id)) FROM offer";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sqlString);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 }

@@ -3,10 +3,10 @@ package com.revature.beans;
 public class Offer {
 	private Integer id;
 	private Bicycle bicycle;
-	private Long price;
+	private Double price;
 	private Person person;
 	
-	public Offer(Bicycle bicycle, Long price, Person person) {
+	public Offer(Bicycle bicycle, Double price, Person person) {
 		this.bicycle = bicycle;
 		this.price = price;
 		this.person = person;
@@ -28,11 +28,11 @@ public class Offer {
 		this.bicycle = bicycle;
 	}
 	
-	public Long getPrice() {
+	public Double getPrice() {
 		return price;
 	}
 	
-	public void setPrice(Long price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 	
