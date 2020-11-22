@@ -8,7 +8,6 @@ import com.revature.beans.Person;
 
 public interface OfferDAO extends GenericDAO<Offer>{
 	public Offer add(Offer offer);
-	public Offer getOfferByBicycle();
-	public Offer getOfferByPerson();
-	public Set<Offer> getAllOngoingOffer();
+	public Set<Offer> getOfferByBicycle(Bicycle b);
+	public Set<Offer> getOfferByPerson(Person p);
 }

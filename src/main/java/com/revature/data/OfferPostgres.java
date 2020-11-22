@@ -7,11 +7,15 @@ import java.sql.ResultSet;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.revature.beans.Bicycle;
 import com.revature.beans.Offer;
+import com.revature.beans.Person;
 import com.revature.utils.ConnectionUtil;
 
 public class OfferPostgres implements OfferDAO{
 	private ConnectionUtil cu = ConnectionUtil.getConnectionUtil();
+	BicyclePostgres bicyclePostgres = new BicyclePostgres();
+	PersonPostgres personPostgres = new PersonPostgres();
 
 	@Override
 	public Offer add(Offer t) {
@@ -43,44 +47,135 @@ public class OfferPostgres implements OfferDAO{
 	@Override
 	public Offer getById(Integer id) {
 		Offer offer = null;
-		return null;
+		
+		try (Connection conn = cu.getConnection()){
+			String sqlString = "select id, bicycle_id, customer_id, amount from offer where id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sqlString);
+			pstmt.setInt(1, id);
+			pstmt.executeQuery();
+			
+			ResultSet rs = pstmt.getResultSet();
+			while(rs.next()) {
+				Bicycle bicycle = bicyclePostgres.getById(rs.getInt("bicycle_id"));
+				Person person = personPostgres.getById(rs.getInt("customer_id"));
+				Offer retOffer = new Offer(id, bicycle, person, rs.getDouble("amount"));
+				offer = retOffer;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return offer;
 	}
 
 	@Override
 	public Set<Offer> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		Set<Offer> offers = new HashSet<Offer>();
+		
+		try (Connection conn = cu.getConnection()){
+			String sqlString = "select id, bicycle_id, customer_id, amount from offer";
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(sqlString);
+			
+			while(rs.next()) {
+				Bicycle bicycle = bicyclePostgres.getById(rs.getInt("bicycle_id"));
+				Person person = personPostgres.getById(rs.getInt("customer_id"));
+				Integer id = rs.getInt("id");
+				Offer retOffer = new Offer(id, bicycle, person, rs.getDouble("amount"));
+				offers.add(retOffer);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return offers;
 	}
 
 	@Override
 	public void update(Offer t) {
-		// TODO Auto-generated method stub
-		
+		try (Connection conn = cu.getConnection()){
+			String sqlString = "update offer set bicycle_id  = ?, customer_id  = ?, amount = ? where id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sqlString);
+			pstmt.setInt(1, t.getBicycle().getId());
+			pstmt.setInt(2, t.getPerson().getId());
+			pstmt.setDouble(3, t.getPrice());
+			pstmt.setInt(4, t.getId());
+			int i = pstmt.executeUpdate();
+			if (i > 0) {
+				conn.commit();
+			}else {
+				conn.rollback();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void delete(Offer t) {
-		// TODO Auto-generated method stub
+		try(Connection conn = cu.getConnection()) {
+			conn.setAutoCommit(false);
+			String sqlString = "delete from offer where id = ?";
+			String[] keyStrings = {"id"};
+			PreparedStatement pstmt = conn.prepareStatement(sqlString,keyStrings);
+			pstmt.setInt(1, t.getId());
+			int i = pstmt.executeUpdate();
+			if (i > 0) {
+				conn.commit();
+			}else {
+				conn.rollback();
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public Set<Offer> getOfferByBicycle(Bicycle b) {
+		Set<Offer> offers = new HashSet<Offer>();
 		
+		try(Connection conn = cu.getConnection()){
+			String sqlString = "select id, customer_id, amount from offer where bicycle_id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sqlString);
+			pstmt.setInt(1, b.getId());
+			
+			ResultSet rs = pstmt.getResultSet();
+			while(rs.next()) {
+				Person person = personPostgres.getById(rs.getInt("customer_id"));
+				Double price = rs.getDouble("amount");
+				Integer id = rs.getInt("id");
+				Offer offer = new Offer(id, b, person, price);
+				offers.add(offer);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return offers;
 	}
 
 	@Override
-	public Offer getOfferByBicycle() {
-		// TODO Auto-generated method stub
-		return null;
+	public Set<Offer> getOfferByPerson(Person p) {
+		Set<Offer> offers = new HashSet<Offer>();
+		
+		try(Connection conn = cu.getConnection()){
+			String sqlString = "select id, bicycle_id, amount from offer where customer_id = ?";
+			PreparedStatement pstmt = conn.prepareStatement(sqlString);
+			pstmt.setInt(1, p.getId());
+			
+			ResultSet rs = pstmt.getResultSet();
+			while(rs.next()) {
+				Bicycle b = bicyclePostgres.getById(rs.getInt("bicycle_id"));
+				Double price = rs.getDouble("amount");
+				Integer id = rs.getInt("id");
+				Offer offer = new Offer(id, b, p, price);
+				offers.add(offer);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return offers;
 	}
 
-	@Override
-	public Offer getOfferByPerson() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Set<Offer> getAllOngoingOffer() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 	
 	public void resetDefault() {
 		try (Connection conn = cu.getConnection()){
@@ -92,5 +187,7 @@ public class OfferPostgres implements OfferDAO{
 			e.printStackTrace();
 		}
 	}
+
+
 
 }

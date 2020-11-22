@@ -6,7 +6,8 @@ public class Offer {
 	private Double price;
 	private Person person;
 	
-	public Offer(Bicycle bicycle, Double price, Person person) {
+	public Offer(Integer id, Bicycle bicycle, Person person, Double price) {
+		this.id = id;
 		this.bicycle = bicycle;
 		this.price = price;
 		this.person = person;

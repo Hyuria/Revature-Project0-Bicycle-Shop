@@ -54,4 +54,14 @@ public class Status {
 	public String toString() {
 		return "Status [id=" + id + ", state =" + state + "]";
 	}
+	
+	public void changeToAvaliable() {
+		id = 1;
+		state = "Available";
+	}
+	
+	public void changeToUnavaliable() {
+		id = 2;
+		state = "Unavailable";
+	}
 }

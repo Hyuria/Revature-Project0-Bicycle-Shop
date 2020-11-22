@@ -1,4 +1,4 @@
-package com.revature.data;
+package com.revature.service;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
@@ -12,15 +12,18 @@ import com.revature.beans.Person;
 import com.revature.beans.Role;
 import com.revature.beans.Status;
 import com.revature.exceptions.NonUniqueUsernameException;
+import com.revature.services.PersonService;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class OfferPostgresTest {
-	
+public class PersonServiceTest {
+	PersonService personService = new PersonService();
+
 	@Test
-	public void testAddOffer() {
-	
+	public void testLogin() {
+		String username = "tester";
+		String password = "testpwd";
+		
+		Person retPerson = personService.login(username, password);
+		Person expectedPerson = personService.getPersonByUsername(username);
+		assertEquals(expectedPerson, retPerson);
 	}
-	
-	
-
 }
