@@ -6,15 +6,12 @@ import com.revature.beans.Bicycle;
 import com.revature.beans.Person;
 import com.revature.beans.Status;
 import com.revature.data.BicyclePostgres;
-import com.revature.data.PersonPostgres;
 
 public class BicycleService {
 	private BicyclePostgres bicyclePostgres;
-	private PersonPostgres personPostgres;
 	
 	public BicycleService() {
 		bicyclePostgres = new BicyclePostgres();
-		personPostgres = new PersonPostgres();
 	}
 	
 	public Bicycle getBicycleById(Integer id) {

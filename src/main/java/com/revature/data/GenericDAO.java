@@ -2,9 +2,6 @@ package com.revature.data;
 
 import java.util.Set;
 
-import com.revature.beans.Person;
-import com.revature.exceptions.NonUniqueUsernameException;
-
 public interface GenericDAO <T> {
 	public T add(T t) throws Exception;
 	public T getById(Integer id);

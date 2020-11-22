@@ -111,6 +111,7 @@ public class PersonPostgres implements PersonDAO{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		resetDefault();
 	}
 
 	@Override
@@ -217,7 +218,7 @@ public class PersonPostgres implements PersonDAO{
 		try (Connection conn = cu.getConnection()){
 			String sqlString = "SELECT setval('bicycleshop.person_id_seq', max(id)) FROM person;";
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sqlString);
+			stmt.executeQuery(sqlString);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -1,7 +1,5 @@
 package com.revature.services;
 
-import javax.swing.plaf.metal.MetalIconFactory.FolderIcon16;
-
 import com.revature.beans.Person;
 import com.revature.data.PersonPostgres;
 import com.revature.exceptions.NonUniqueUsernameException;

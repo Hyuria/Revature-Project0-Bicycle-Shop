@@ -9,7 +9,6 @@ import java.util.Set;
 
 import com.revature.beans.Bicycle;
 import com.revature.beans.Category;
-import com.revature.beans.Offer;
 import com.revature.beans.Person;
 import com.revature.beans.Status;
 import com.revature.utils.ConnectionUtil;
@@ -125,7 +124,7 @@ public class BicyclePostgres implements BicycleDAO{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
+		resetDefault();
 	}
 
 	@Override
@@ -195,7 +194,6 @@ public class BicyclePostgres implements BicycleDAO{
 			String sqlString = "update bicycle set owned_by = ? where id = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sqlString);
 			if (p == null) {
-				System.out.println("Person is null");
 				pstmt.setNull(1, java.sql.Types.INTEGER);
 				pstmt.setInt(2, b.getId());
 			}else {
@@ -251,7 +249,7 @@ public class BicyclePostgres implements BicycleDAO{
 		try (Connection conn = cu.getConnection()){
 			String sqlString = "select setval('bicycleshop.bicycle_id_seq', max(id)) FROM bicycle";
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sqlString);
+			stmt.executeQuery(sqlString);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

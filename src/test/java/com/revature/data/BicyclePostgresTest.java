@@ -65,7 +65,6 @@ public class BicyclePostgresTest {
 		Bicycle bicycle = new Bicycle();
 		bicycle.setId(10);
 		bicyclePostgres.delete(bicycle);
-		bicyclePostgres.resetDefault();
 		lastestBicycles = bicyclePostgres.getAll();
 		assertEquals(originalBicycles.size() - 1, lastestBicycles.size());
 	}

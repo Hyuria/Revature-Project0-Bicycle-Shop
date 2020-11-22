@@ -2,7 +2,6 @@ package com.revature.beans;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.*;
-import com.revature.beans.Status;
 
 public class StatusTest {
 	
