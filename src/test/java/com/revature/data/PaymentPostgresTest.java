@@ -53,7 +53,6 @@ public class PaymentPostgresTest {
 		payment = paymentPostgres.getById(2);
 		paymentPostgres.delete(payment);
 		assertEquals(1, paymentPostgres.getAll().size());
-		paymentPostgres.resetDefault();
 	}
 	
 }
