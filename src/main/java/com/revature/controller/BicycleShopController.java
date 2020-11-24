@@ -3,6 +3,8 @@ package com.revature.controller;
 import java.util.Scanner;
 import java.util.Set;
 
+import javax.swing.plaf.InputMapUIResource;
+
 import com.revature.beans.Bicycle;
 import com.revature.beans.Person;
 import com.revature.beans.Role;
@@ -45,36 +47,36 @@ public class BicycleShopController {
         	
             
         	//Finished logging in user
-            if (loggedInUser.getRole().getName() == "customer") {
+            
+            if (loggedInUser.getRole().getName().contains("customer")) {
+            	System.out.println("In customer menu");
             	mainMenu: while (true) {
-            		
-            		System.out.println("Welcome " + loggedInUser.getUsername() + " . \n\nMain menu:\n");
+            		System.out.println("Welcome " + loggedInUser.getUsername() + ". \nMain menu:\n");
             		System.out.println("1. View all avaliable bicycles.");
             		System.out.println("2. Make an offer for a bicycle.");
             		System.out.println("3. View owned bicycle(s)");
             		System.out.println("4. View remaining payments on a bicycle.");
+            		System.out.println("Other Numbers To Log Out.");
             		int input = Integer.valueOf(scan.nextLine());
     				switch (input) {
-	    				case 1: 
+	    				case 1: viewAllAvalaibleBicycles();
 	    						break;
 	    				case 2:
-	    				
+	    						break;
 	    				case 3:
-	    				
+	    						break;
 	    				case 4: 
-	
-	    				default: break mainMenu;
+	    						break;
+	    				default:
+	    						break mainMenu;
     				}
             		
-            		
-            		break mainMenu;
             		
             	}
             }else {
             	mainMenu: while (true) {
             		
-            		System.out.println("Welcome " + loggedInUser.getUsername() + " . \n\nMain menu:");
-            		System.out.println("Please");
+            		System.out.println("Welcome " + loggedInUser.getUsername() + ". \n\nMain menu:");
             		
             		break mainMenu;
             		
@@ -165,11 +167,13 @@ public class BicycleShopController {
 		for (Bicycle bicycle : avaliableBicycles) {
 			System.out.println("ID: " + bicycle.getId( ) + " - (" + bicycle.getCategory().getName().toUpperCase() + ") " +bicycle.getModelName());
 		}
-		System.out.println("Press Any Number to Go Back.");
-		int input = Integer.valueOf(scan.nextLine());
-		
-		
-		
+		while (true) {
+			System.out.println("Press 1 to Go Back.");
+			Integer input = Integer.valueOf(scan.nextLine());
+			if (input == 1) {
+				break;
+			}
+		}
 	}
 
 }

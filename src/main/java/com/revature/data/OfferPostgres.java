@@ -138,6 +138,7 @@ public class OfferPostgres implements OfferDAO{
 			String sqlString = "select id, customer_id, amount from offer where bicycle_id = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sqlString);
 			pstmt.setInt(1, b.getId());
+			pstmt.executeQuery();
 			
 			ResultSet rs = pstmt.getResultSet();
 			while(rs.next()) {
@@ -161,6 +162,7 @@ public class OfferPostgres implements OfferDAO{
 			String sqlString = "select id, bicycle_id, amount from offer where customer_id = ?";
 			PreparedStatement pstmt = conn.prepareStatement(sqlString);
 			pstmt.setInt(1, p.getId());
+			pstmt.executeQuery();
 			
 			ResultSet rs = pstmt.getResultSet();
 			while(rs.next()) {

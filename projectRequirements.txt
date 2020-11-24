@@ -31,7 +31,7 @@ Total Points: 25 Points
 	* 3 points
 * As a customer, I can view the bicycles that I own. // CustomerDAO: showOwnedBicycles()
 	* 1 point
-* As a customer, I can view my remaining payments for a bicycle.
+* As a customer, I can view my remaining payments for a bicycle. // FinanceDAO
 	* 1 point
 
 * As an employee, I can add a bicycle to the shop. //BicycleDAO add()
